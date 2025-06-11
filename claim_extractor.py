@@ -1,11 +1,13 @@
-from langchain.chat_models import ChatOpenAI
+import os
+from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 
-import os
-llm = ChatOpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
+llm = OpenAI(
+    temperature=0,
+    openai_api_key=os.getenv("OPENAI_API_KEY")
+)
 
-
-def extract_claims(text):
+def extract_claims(text: str) -> str:
     prompt = PromptTemplate.from_template("""
     Extract distinct factual medical or statistical claims from this text:
     ---
@@ -13,4 +15,5 @@ def extract_claims(text):
     ---
     List each claim as a bullet point.
     """)
-    return llm.predict(prompt.format(text=text))
+    # The OpenAI LLM uses __call__, so invoke it directly:
+    return llm(prompt.format(text=text))
