@@ -1,7 +1,9 @@
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
-llm = ChatOpenAI(temperature=0)
+import os
+llm = ChatOpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
+
 
 def extract_claims(text):
     prompt = PromptTemplate.from_template("""
