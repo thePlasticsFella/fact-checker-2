@@ -4,3 +4,4 @@ biopython
 streamlit
 python-dotenv
 tqdm
+langchain-community
